@@ -519,15 +519,15 @@ footer {
     }
 
     /* Hero */
-    .hero { height: auto; min-height: 100vh; padding-bottom: 60px; }
+    .hero { height: auto; min-height: 100vh; padding-top: 100px; padding-bottom: 60px; }
     .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 30px;
     }
 
-    .hero-text h1 { font-size: 2.5rem; }
-    .hero-text p { margin: 0 auto 30px; }
+    .hero-text h1 { font-size: 2.2rem; line-height: 1.2; }
+    .hero-text p { margin: 0 auto 30px; font-size: 1.1rem; }
     .hero-actions { justify-content: center; }
     .hero-image { transform: none !important; }
     .hero-image img { transform: none !important; }
