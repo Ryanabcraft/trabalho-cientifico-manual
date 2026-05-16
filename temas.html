@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temas e Exemplos de Trabalhos Científicos | Ciência Manual</title>
+    <meta name="description" content="Encontre inspiração e exemplos prontos para o seu trabalho científico manual. Mais de 500 temas com introdução, desenvolvimento e conclusão.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .temas-hero { padding: 120px 0 60px; text-align: center; background: var(--bg-light); }
+        .search-container { max-width: 600px; margin: 40px auto; position: relative; }
+        .search-input { width: 100%; padding: 15px 25px; border-radius: 50px; border: 2px solid #ddd; font-size: 1.1rem; outline: none; transition: var(--transition); }
+        .search-input:focus { border-color: var(--secondary); box-shadow: var(--shadow); }
+        .temas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .tema-card { background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid #eee; cursor: pointer; transition: var(--transition); }
+        .tema-card:hover { transform: translateY(-5px); border-color: var(--secondary); }
+        .tema-card h3 { margin-bottom: 15px; color: var(--primary); }
+        .tema-card p { font-size: 0.95rem; color: var(--text-light); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .tema-badge { display: inline-block; padding: 5px 12px; background: #fdf2f2; color: #c53030; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px; }
+        
+        #tema-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; padding: 40px 20px; overflow-y: auto; }
+        .modal-content { background: white; max-width: 900px; margin: 0 auto; padding: 50px; border-radius: 30px; position: relative; background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png"); }
+        .close-modal { position: absolute; top: 20px; right: 30px; font-size: 2rem; cursor: pointer; color: var(--text-light); }
+        .modal-body section { margin-bottom: 40px; }
+        .modal-body h4 { color: var(--secondary); font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        .modal-body pre { white-space: pre-wrap; font-family: inherit; line-height: 1.8; color: var(--text); }
+        .references-list { background: #f9f9f9; padding: 20px; border-radius: 10px; font-size: 0.9rem; }
+        .load-more-container { text-align: center; margin: 40px 0 80px; }
+
+        @media print {
+            .no-print { display: none !important; }
+            body * { visibility: hidden; }
+            #tema-modal, #tema-modal * { visibility: visible; }
+            #tema-modal { position: absolute; left: 0; top: 0; width: 100%; height: auto; background: white; padding: 0; display: block !important; }
+            .modal-content { box-shadow: none; border: none; padding: 0; width: 100%; max-width: none; background-image: none !important; }
+            .close-modal { display: none !important; }
+            .modal-body h2 { font-size: 24pt; margin-bottom: 20pt; text-align: center; }
+            .modal-body h4 { font-size: 16pt; margin-top: 20pt; }
+            .modal-body pre { font-size: 12pt; line-height: 1.5; color: black; }
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header" class="scrolled no-print">
+        <nav class="container">
+            <a href="index.html" class="logo">Ciência<span>Manual</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html#inicio">Início</a></li>
+                <li><a href="index.html#materiais">Materiais</a></li>
+                <li><a href="index.html#estrutura">Estrutura</a></li>
+                <li><a href="temas.html" class="active">Temas e Exemplos</a></li>
+                <li><a href="index.html#dicas">Dicas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="no-print">
+        <section class="temas-hero">
+            <div class="container">
+                <h1>Temas e Exemplos Prontos</h1>
+                <p>Nossa inteligência gerou mais de 500 temas para você nunca ficar sem ideias.</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Pesquisar por tema ou área..." id="tema-search">
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="temas-grid" id="temas-list"></div>
+            <div class="load-more-container" id="load-more-container">
+                <button class="cta-button" id="load-more">Carregar mais +20</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="tema-modal">
+        <div class="modal-content">
+            <span class="close-modal no-print">&times;</span>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer class="no-print">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <div class="logo">Ciência<span>Manual</span></div>
+                <p>Valorizando o esforço e a dedicação da escrita acadêmica tradicional.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="index.html#materiais">Materiais</a></li>
+                    <li><a href="index.html#estrutura">Estrutura</a></li>
+                    <li><a href="temas.html">Temas e Exemplos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Manual do Trabalho Científico. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-weight: 600; color: var(--secondary);">Feito por Ryan e Antigravity</p>
+        </div>
+    </footer>
+
+    <script>
+        const temas = [];
+        
+        // 1. Theme Generator
+        const subjects = ["Educação", "Saúde", "Tecnologia", "Meio Ambiente", "Direito", "Economia", "Sociedade", "Cultura", "Esporte", "Ciência", "História", "Geografia", "Psicologia", "Filosofia", "Arte", "Astronomia", "Medicina", "Engenharia", "Sociologia", "Antropologia", "Literatura", "Música", "Gastronomia", "Moda", "Turismo", "Política", "Religião", "Arquitetura", "Design", "Biologia"];
+        const topics = [
+            "o uso de celulares", "as redes sociais", "a inteligência artificial", "o aquecimento global", "a leitura", "o exercício físico", "a alimentação saudável", "a energia solar", "o trabalho remoto", "a inclusão digital", "a preservação das florestas", "o lixo eletrônico", "a música clássica", "o cinema nacional", "o turismo sustentável", "a moda circular", "a saúde mental", "a ética na ciência", "a exploração espacial", "os carros elétricos", "a educação financeira", "o bullying nas escolas", "as fake news", "a diversidade cultural", "o esporte amador", "a robótica", "a biotecnologia", "o saneamento básico", "a arquitetura urbana", "a mobilidade nas cidades", "o voluntariado", "a arte urbana", "a literatura clássica", "os direitos humanos", "a economia criativa", "o comércio justo", "a inteligência emocional", "o mindfulness", "a yoga", "a meditação", "o vegetarianismo", "o veganismo", "a reciclagem de papel", "o reúso de água", "as hortas comunitárias", "a energia eólica", "o empreendedorismo jovem", "a liderança feminina", "a proteção animal", "o estudo de idiomas", "o uso de drones", "a realidade virtual", "a impressão 3D", "o blockchain", "a criptografia", "o Big Data", "a internet das coisas", "o 5G", "a nanotecnologia", "a neurociência", "o genoma humano", "a clonagem", "os transgênicos", "os agrotóxicos", "a energia nuclear", "o petróleo", "o hidrogênio verde", "a mobilidade elétrica", "o lixo oceânico", "a poluição sonora", "a poluição luminosa", "o estresse urbano", "a ansiedade social", "o isolamento", "a depressão", "a felicidade", "a resiliência", "o altruísmo", "a empatia", "a criatividade", "a inovação", "o pensamento crítico", "a filosofia estoica", "o existencialismo", "o niilismo", "o feminismo", "o antirracismo", "o capacitismo", "a acessibilidade", "o design inclusivo"
+        ];
+        const structures = [
+            "O impacto de {topic} na {subject}", "A evolução de {topic} no contexto da {subject}", "O papel de {topic} para a {subject} moderna", "Consequências de {topic} na {subject} atual", "Desafios de {topic} na área da {subject}", "A importância de {topic} para o desenvolvimento da {subject}", "Análise crítica sobre {topic} e {subject}", "Perspectivas futuras de {topic} em relação a {subject}", "A relação entre {topic} e o progresso da {subject}", "Como {topic} transformou os paradigmas da {subject}"
+        ];
+
+        // 2. Specific World Cup Themes (50)
+        const worldCupTopics = [
+            "o legado dos estádios", "o turismo em massa", "o investimento público", "a segurança nacional", "os direitos trabalhistas nas obras", "o impacto no comércio local", "a união dos povos", "o marketing esportivo", "a tecnologia do VAR", "a evolução das táticas", "a visibilidade das cidades-sede", "o impacto na malha aérea", "as parcerias público-privadas", "o papel dos voluntários", "a sustentabilidade dos eventos", "o racismo nos estádios", "a geopolítica das sedes", "o impacto no PIB", "a profissionalização da arbitragem", "o futebol feminino na Copa", "a cultura dos torcedores", "o consumo de cerveja e bebidas", "a infraestrutura de transporte", "o desenvolvimento tecnológico", "a diplomacia esportiva", "o orgulho nacional", "os protestos sociais", "a corrupção na FIFA", "o impacto ambiental", "a gestão de resíduos", "o treinamento das seleções", "a medicina esportiva", "o papel da imprensa", "as redes sociais e a Copa", "os aplicativos de apostas", "o licenciamento de produtos", "a arquitetura dos estádios", "a energia renovável nos jogos", "o intercâmbio cultural", "a gastronomia típica", "o aumento da criminalidade", "a proteção a turistas", "o legado social", "a educação pelo esporte", "o incentivo a jovens atletas", "o impacto psicológico das derrotas", "a celebração das vitórias", "o uso de big data no futebol", "os direitos de transmissão", "o futuro das Copas"
+        ];
+
+        // Generate 50 World Cup themes
+        worldCupTopics.forEach((topic, idx) => {
+            temas.push({
+                id: `wc-${idx}`,
+                categoria: "Copa do Mundo",
+                titulo: `Análise sobre ${topic} durante a Copa do Mundo`,
+                intro: `A Copa do Mundo é um evento de proporções globais que vai muito além das quatro linhas. Este trabalho foca em ${topic}, um aspecto crucial para entender como o torneio afeta a vida das pessoas e a organização das cidades.`,
+                dev: `O desenvolvimento sobre ${topic} revela dados interessantes sobre planejamento e execução. Analisamos casos de sedes anteriores, os sucessos alcançados e os erros que não devem ser repetidos. Para um trabalho manual, recomenda-se citar exemplos específicos de anos como 2014, 2018 ou 2022.`,
+                concl: `Em conclusão, ${topic} é uma peça fundamental no quebra-cabeça que compõe o legado de uma Copa do Mundo. Sem uma atenção dedicada a este ponto, o evento corre o risco de ser apenas um gasto sem retorno duradouro.`,
+                refs: ["FIFA Official Reports", "Estudos de Impacto Econômico", "Jornalismo Esportivo Internacional"]
+            });
+        });
+
+        // 3. Generate 2000 General Themes
+        for (let i = 0; i < 2000; i++) {
+            const s = subjects[i % subjects.length];
+            const t = topics[Math.floor(Math.random() * topics.length)];
+            const struct = structures[Math.floor(Math.random() * structures.length)];
+            const titulo = struct.replace("{topic}", t).replace("{subject}", s.toLowerCase());
+            
+            temas.push({
+                id: i + 1,
+                categoria: s,
+                titulo: titulo.charAt(0).toUpperCase() + titulo.slice(1),
+                intro: `Este trabalho analisa ${titulo}. A introdução aborda a relevância histórica e atual deste tema, destacando como ele influencia a vida cotidiana e o campo da ${s.toLowerCase()}. É fundamental compreender que este assunto não é isolado, mas sim parte de um ecossistema complexo de relações sociais e técnicas.`,
+                dev: `No desenvolvimento de ${titulo}, exploramos os principais dados e teorias que sustentam a discussão. Abordamos os avanços recentes na área, os principais obstáculos enfrentados e as diferentes perspectivas de especialistas. No caso da escrita manual, é recomendado o uso de tópicos e esquemas para facilitar a organização do pensamento e a estética da página.`,
+                concl: `Conclui-se que ${titulo} representa um marco importante para a ${s.toLowerCase()}. Os benefícios superam os desafios, desde que haja planejamento e ética na aplicação dos conceitos. O futuro deste tema depende da nossa capacidade de adaptação e inovação constante.`,
+                refs: [`Referência Acadêmica sobre ${t}`, `Tratado de ${s}`, `Estudos Contemporâneos de ${t}`]
+            });
+        }
+
+        // 2. UI Logic
+        const grid = document.getElementById('temas-list');
+        const search = document.getElementById('tema-search');
+        const modal = document.getElementById('tema-modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeModal = document.querySelector('.close-modal');
+        const loadMoreBtn = document.getElementById('load-more');
+        
+        let itemsShown = 20;
+        let currentFilter = "";
+
+        function renderTemas(filter = "", append = false) {
+            if (!append) {
+                grid.innerHTML = "";
+                itemsShown = 20;
+            }
+            
+            const filtered = temas.filter(t => 
+                t.titulo.toLowerCase().includes(filter.toLowerCase()) || 
+                t.categoria.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            const start = append ? itemsShown : 0;
+            const end = append ? itemsShown + 20 : 20;
+            const toShow = filtered.slice(start, end);
+
+            toShow.forEach(t => {
+                const card = document.createElement('div');
+                card.className = "tema-card";
+                card.innerHTML = `<span class="tema-badge">${t.categoria}</span><h3>${t.titulo}</h3><p>${t.intro}</p>`;
+                card.onclick = () => openTema(t);
+                grid.appendChild(card);
+            });
+
+            if (append) itemsShown += 20;
+
+            document.getElementById('load-more-container').style.display = (itemsShown >= filtered.length) ? "none" : "block";
+        }
+
+        function openTema(t) {
+            modalBody.innerHTML = `
+                <span class="tema-badge no-print">${t.categoria}</span>
+                <h2>${t.titulo}</h2>
+                <section><h4>Introdução</h4><pre>${t.intro}</pre></section>
+                <section><h4>Desenvolvimento</h4><pre>${t.dev}</pre></section>
+                <section><h4>Conclusão</h4><pre>${t.concl}</pre></section>
+                <section><h4>Referências Bibliográficas</h4><div class="references-list">${t.refs.map(r => `<p>• ${r}</p>`).join('')}</div></section>
+                <div style="margin-top: 40px; text-align: center;" class="no-print">
+                    <button class="cta-button" onclick="window.print()">Imprimir como Guia</button>
+                </div>
+            `;
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        loadMoreBtn.onclick = () => renderTemas(currentFilter, true);
+        closeModal.onclick = () => { modal.style.display = "none"; document.body.style.overflow = "auto"; };
+        window.onclick = (e) => { if (e.target == modal) { modal.style.display = "none"; document.body.style.overflow = "auto"; } };
+        search.oninput = (e) => { currentFilter = e.target.value; renderTemas(currentFilter); };
+
+        renderTemas();
+    </script>
+</body>
+</html>
