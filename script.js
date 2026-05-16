@@ -29,10 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Smooth scroll for start button
-    document.getElementById('start-guide').addEventListener('click', () => {
-        document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
-    });
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navLinksList = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinksList.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinksList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksList.classList.remove('active');
+            });
+        });
+    }
+
+    // Smooth scroll for start button (only on index)
+    const startBtn = document.getElementById('start-guide');
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            document.getElementById('materiais').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 
     // Intersection Observer for fade-in animations
     const observerOptions = {
